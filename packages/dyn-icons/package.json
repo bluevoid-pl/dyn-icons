@@ -15,13 +15,20 @@
     "test": "vitest",
     "typecheck": "tsc --noEmit",
     "release": "bumpp",
-    "prepublishOnly": "pnpm run build"
+    "prepublishOnly": "pnpm run build",
+    "dyn-icons": "tsx ./src/cliEntry.ts"
   },
   "devDependencies": {
+    "@tabler/icons-react": "^3.46.0",
     "@types/node": "^26.6.1",
     "bumpp": "^12.3.0",
     "tsdown": "^0.23.0",
+    "tsx": "^4.23.13",
     "typescript": "^7.0.2",
-    "vitest": "^5.0.1"
+    "vitest": "^5.0.1",
+    "zod": "^4.6.5"
+  },
+  "dependencies": {
+    "commander": "^15.0.0"
   }
 }

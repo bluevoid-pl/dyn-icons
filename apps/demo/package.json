@@ -20,7 +20,10 @@
     "nitro": "3.0.260903-beta",
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
-    "tailwindcss": "^4.3.3"
+    "tailwindcss": "^4.3.3",
+    "@bluevoid/dyn-icons": "workspace:*",
+    "@bluevoid/dyn-icons-react": "workspace:*"
+
   },
   "devDependencies": {
     "@biomejs/biome": "2.5.14",
