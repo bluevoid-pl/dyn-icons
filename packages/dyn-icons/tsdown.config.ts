@@ -6,12 +6,12 @@ export default defineConfig({
   },
  	entry: {
 		index: "src/index.ts",
-		cli: "src/cli.ts",
-		cliEntry: "src/cliEntry.ts",
+		cli: "src/cli/cli.ts",
+		cliEntry: "src/cli/cliEntry.ts",
 		"bluevoid.config": "bluevoid.config.ts",
   },
   exports: {
-		exclude: ["src/cliEntry.ts"],
-		bin: { "dyn-icons": "src/cliEntry.ts" },
+		exclude: ["src/cli/cliEntry.ts"],
+		bin: { "dyn-icons": "src/cli/cliEntry.ts" },
 	},
 })

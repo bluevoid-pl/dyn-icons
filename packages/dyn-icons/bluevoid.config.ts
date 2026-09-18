@@ -1,4 +1,4 @@
-import type { BluevoidConfigType } from "@bluevoid/dyn-icons"
+import type { BluevoidConfigType } from "./src/types"
 
 const config: BluevoidConfigType = {
 	icons: {

@@ -4,10 +4,14 @@
   "version": "0.0.0",
   "exports": {
     ".": "./dist/index.mjs",
+    "./bluevoid.config": "./dist/bluevoid.config.mjs",
+    "./cli": "./dist/cli.mjs",
+    "./cliEntry": "./dist/cliEntry.mjs",
     "./package.json": "./package.json"
   },
   "files": [
-    "dist"
+    "dist",
+    "example.bluevoid.config.ts"
   ],
   "scripts": {
     "build": "tsdown",
@@ -16,7 +20,10 @@
     "typecheck": "tsc --noEmit",
     "release": "bumpp",
     "prepublishOnly": "pnpm run build",
-    "dyn-icons": "tsx ./src/cliEntry.ts"
+    "dyn-icons": "tsx ./src/cli/cli.ts"
+  },
+  "peerDependencies": {
+    "zod": "^4.6.5"
   },
   "devDependencies": {
     "@tabler/icons-react": "^3.46.0",
@@ -30,5 +37,8 @@
   },
   "dependencies": {
     "commander": "^15.0.0"
+  },
+  "bin": {
+    "dyn-icons": "./dist/cliEntry.mjs"
   }
 }
