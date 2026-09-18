@@ -3,13 +3,14 @@ import * as z from "zod/mini"
 export const buildInExtractorNames = z.enum(["tabler-react", "lucide-react"])
 
 export const buildInPathsStrategyNames = z.enum(["single", "pages"])
-export const linkModeSchema = z.optional(
+
+export const linkModeValidator = z.optional(
 	z._default(z.enum(["symlink", "copy", "move", "off"]), "symlink"),
 )
 
-export const IconDataSchema = z.object({
+export const IconDataValidator = z.object({
 	type: z.optional(z.string()),
-	iconName: z.string(),
+  iconName: z.string(),
 	iconNamePascal: z.optional(z.string()),
 	iconNode: z.array(
 		z.tuple([
@@ -37,74 +38,56 @@ export const iconProviderValidator = z.object({
 	strategies: z.record(z.string(), z.looseObject({})),
 })
 
-export const strategySchema = z.object({
-	generator: z.function({
+export const generatorFnValidator =  z.function({
 		input: [
-			z.array(IconDataSchema),
+			z.array(IconDataValidator),
 			iconProviderValidator,
 			z.record(z.string(), z.any()),
 			z.any(),
 		],
 		output: z.any(),
-	}),
-	pageLoader: z.function({
+	})
+export const loaderFnValidator = z.function({
 		input: z.any(),
 		output: z.any(),
-	}),
-	singleLoader: z.function({
-		input: z.any(),
-		output: z.any(),
-	}),
 })
 
-const extractorSchema = z.function({
-	input: [
-		z.string(),
-		z.object({
+export const strategyValidator = z.object({
+	generator: generatorFnValidator,
+	pageLoader: loaderFnValidator,
+	singleLoader: loaderFnValidator,
+})
+
+export const iconJsModuleValidator = z.object({ //
 			__iconNode: z.array(z.tuple([z.string(), z.any()])),
 			default: z.any(),
-		}),
+		})
+
+const extractorValidator = z.function({
+	input: [
+		z.string(), // fileName
+		iconJsModuleValidator // Js module, that contains single icon
 	],
-	output: z.any(),
+	output: IconDataValidator, // must be icon for now, TODO: make this dependent on client resolver
 })
 
-// Extend schema for bluevoid config extends field
-const extendsSchema = z.object({
-	strategies: z.optional(z.record(z.string(), strategySchema)),
-	extractors: z.optional(z.record(z.string(), extractorSchema)),
+// Extend Validator for bluevoid config extends field
+const extendsValidator = z.object({
+	strategies: z.optional(z.record(z.string(), strategyValidator)),
+	extractors: z.optional(z.record(z.string(), extractorValidator)),
 })
 
 export const bluevoidConfigValidator = z.looseObject({
 	icons: z.optional(
 		z.strictObject({
-			linkMode: linkModeSchema,
+			linkMode: linkModeValidator,
 			linkDir: z.optional(z.string()),
 			cacheClientPath: z.optional(z.string()),
-			extends: z.optional(extendsSchema),
+			extends: z.optional(extendsValidator),
 			providers: z.optional(
 				z.record(
 					z.string(),
-					z.strictObject({
-						name: z.optional(z.string()),
-						alias: z.optional(z.string()),
-						enabled: z.optional(z.boolean()),
-						input: z.optional(z.string()),
-						inputSuffix: z.optional(z.string()),
-						nameOfCreateFn: z.optional(z.string()),
-						output: z.optional(z.string()),
-						extractor: z.optional(
-							z.union([
-								z.string(),
-								z.function({
-									input: [z.string(), z.any()],
-									output: z.any(),
-								}),
-							]),
-						),
-						strategies: z.record(z.string(), z.looseObject({})),
-						metaProvider: z.optional(z.string()),
-						metaPath: z.optional(z.string()),
-					}),
+					iconProviderValidator,
 				),
 			),
 		}),
