@@ -4,22 +4,22 @@
   "type": "module",
   "scripts": {
     "build": "pnpm --filter '!demo' --recursive run build",
-		"dev": "pnpm --filter '!demo' --recursive run dev",
-		"typecheck": "pnpm --recursive run typecheck",
-		"lint": "pnpm --recursive run lint",
-		"test": "pnpm --recursive run test",
-		"dev:docs": "pnpm --filter docs dev",
-		"demo:dev": "pnpm --filter demo run dev",
-		"pkg-up": "ncu -u -i -c 1d -w -p pnpm"
+    "dev": "pnpm --filter '!demo' --recursive run dev",
+    "typecheck": "pnpm --recursive run typecheck",
+    "lint": "pnpm --recursive run lint",
+    "test": "pnpm --recursive run test",
+    "dev:docs": "pnpm --filter docs dev",
+    "demo:dev": "pnpm --filter demo run dev",
+    "pkg-up": "ncu -u -i -c 1d -w -p pnpm"
   },
   "author": "Mateusz Kifner<third-party@bluevoid.pl>",
   "license": "MIT",
   "devEngines": {
     "packageManager": {
       "name": "pnpm",
-      "version": "12.4.2",
+      "version": "12.5.1",
       "onFail": "download"
     }
   },
-  "packageManager": "pnpm@12.4.2"
+  "packageManager": "pnpm@12.5.1"
 }
